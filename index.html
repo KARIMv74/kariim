@@ -6,7 +6,8 @@
     <title>KARIM | PROFILE</title>
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Righteous&family=Montserrat:wght@300;400;700&display=swap');
+        /* Orbitron Font for a futuristic look */
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Montserrat:wght@300;400;700&display=swap');
 
         :root {
             --bg-deep: #0a0b10;
@@ -53,12 +54,13 @@
         .profile-card.show { opacity: 1; transform: translateY(0); }
 
         .name-header {
-            font-family: 'Righteous', cursive;
-            font-size: 3.5rem;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.8rem;
+            font-weight: 700;
             color: var(--neon-purple);
             text-shadow: 0 0 15px var(--neon-glow), 0 0 30px var(--neon-glow);
             margin-bottom: 20px;
-            letter-spacing: 2px;
+            letter-spacing: 4px;
             text-transform: uppercase;
         }
 
@@ -121,17 +123,18 @@
         .pill-title { font-size: 0.5rem; color: var(--text-gray); display: block; margin-bottom: 3px; }
         .pill-body { font-size: 0.7rem; font-weight: bold; }
 
-        .friends-grid {
-            display: grid; grid-template-columns: repeat(3, 1fr);
-            gap: 15px; width: 100%;
+        .designer-tag {
+            font-size: 0.55rem;
+            color: var(--text-gray);
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-top: auto; /* Pushes it to the bottom */
+            opacity: 0.5;
+            transition: 0.3s;
+            padding-top: 20px;
         }
-        .friend-item { display: flex; flex-direction: column; align-items: center; gap: 5px; }
-        .friend-img {
-            width: 50px; height: 50px; border-radius: 50%;
-            border: 1px solid var(--neon-purple); padding: 2px;
-        }
-        .friend-img img { width: 100%; height: 100%; border-radius: 50%; filter: grayscale(0.4); }
-        .friend-name { font-size: 0.6rem; color: var(--text-gray); }
+        .designer-tag span { color: var(--neon-purple); font-weight: bold; }
+        .designer-tag:hover { opacity: 1; text-shadow: 0 0 8px var(--neon-purple); }
 
         .side-line {
             position: absolute; right: 12px; top: 60px; width: 1px; height: 450px;
@@ -163,7 +166,7 @@
         <div class="music-player">
             <button class="play-btn" id="master-play"><i class="ph-fill ph-play" id="play-icon"></i></button>
             <div class="track-info">
-                <span class="track-name">Hossam Habib </span>
+                <span class="track-name">Hossam Habib</span>
                 <span class="track-artist">Malnash Naseeb</span>
             </div>
             <i class="ph ph-waveform" style="color: var(--neon-purple); font-size: 1.2rem;"></i>
@@ -182,7 +185,7 @@
 
         <div style="font-size: 0.6rem; color: var(--text-gray); letter-spacing: 3px; margin-bottom: 15px;">KEEP GOING</div>
         
-        
+        <div class="designer-tag">Design  <span>KEMO</span></div>
 
         <audio id="bg-music" loop src="https://files.catbox.moe/t6c69v.mp3"></audio>
     </div>
