@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KARIM | PROFILE</title>
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Righteous&family=Montserrat:wght@300;400;700&display=swap');
+
+        :root {
+            --bg-deep: #0a0b10;
+            --card-dark: #111218;
+            --neon-purple: #9d4edd;
+            --neon-glow: rgba(157, 78, 221, 0.4);
+            --text-gray: #888990;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background-color: var(--bg-deep);
+            background-image: radial-gradient(circle at 50% 50%, #1a1b25 0%, #0a0b10 100%);
+            color: white;
+            font-family: 'Montserrat', sans-serif;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        #entry-gate {
+            position: fixed; inset: 0; background: #000; z-index: 1000;
+            display: flex; align-items: center; justify-content: center; cursor: pointer;
+        }
+        .gate-msg { font-size: 0.7rem; letter-spacing: 5px; color: var(--neon-purple); text-transform: uppercase; animation: pulse 2s infinite; }
+
+        .profile-card {
+            width: 360px;
+            height: 680px; 
+            background: var(--card-dark);
+            border-radius: 35px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            position: relative;
+            padding: 30px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.8);
+            opacity: 0; transform: translateY(20px); transition: 1s ease;
+        }
+        .profile-card.show { opacity: 1; transform: translateY(0); }
+
+        .name-header {
+            font-family: 'Righteous', cursive;
+            font-size: 3.5rem;
+            color: var(--neon-purple);
+            text-shadow: 0 0 15px var(--neon-glow), 0 0 30px var(--neon-glow);
+            margin-bottom: 20px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .avatar-container {
+            position: relative;
+            width: 130px;
+            height: 130px;
+            margin-bottom: 25px;
+        }
+        .avatar-circle {
+            width: 100%; height: 100%; border-radius: 50%;
+            border: 3px solid var(--neon-purple);
+            box-shadow: 0 0 20px var(--neon-glow);
+            overflow: hidden; padding: 5px;
+        }
+        .avatar-circle img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; }
+        
+        .status-dot {
+            position: absolute; bottom: 10px; right: 10px;
+            width: 15px; height: 15px; background: #2ecc71;
+            border: 3px solid var(--card-dark); border-radius: 50%;
+            box-shadow: 0 0 10px #2ecc71;
+        }
+
+        .music-player {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(157, 78, 221, 0.1);
+            border-radius: 20px;
+            padding: 15px;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        .play-btn {
+            background: var(--neon-purple);
+            border: none;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            color: white;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: 0.3s;
+        }
+        .play-btn:hover { transform: scale(1.1); box-shadow: 0 0 10px var(--neon-purple); }
+        .track-info { flex-grow: 1; }
+        .track-name { font-size: 0.7rem; font-weight: bold; display: block; margin-bottom: 2px; }
+        .track-artist { font-size: 0.5rem; color: var(--text-gray); }
+
+        .info-row { display: flex; gap: 10px; width: 100%; margin-bottom: 25px; }
+        .info-pill {
+            flex: 1; background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(157, 78, 221, 0.15);
+            border-radius: 15px; padding: 10px; text-align: center;
+        }
+        .pill-title { font-size: 0.5rem; color: var(--text-gray); display: block; margin-bottom: 3px; }
+        .pill-body { font-size: 0.7rem; font-weight: bold; }
+
+        .friends-grid {
+            display: grid; grid-template-columns: repeat(3, 1fr);
+            gap: 15px; width: 100%;
+        }
+        .friend-item { display: flex; flex-direction: column; align-items: center; gap: 5px; }
+        .friend-img {
+            width: 50px; height: 50px; border-radius: 50%;
+            border: 1px solid var(--neon-purple); padding: 2px;
+        }
+        .friend-img img { width: 100%; height: 100%; border-radius: 50%; filter: grayscale(0.4); }
+        .friend-name { font-size: 0.6rem; color: var(--text-gray); }
+
+        .side-line {
+            position: absolute; right: 12px; top: 60px; width: 1px; height: 450px;
+            background: linear-gradient(to bottom, transparent, var(--neon-purple), transparent);
+            opacity: 0.5;
+        }
+
+        @keyframes pulse { 0%, 100% { opacity: 0.5; } 50% { opacity: 1; } }
+    </style>
+</head>
+<body>
+
+    <div id="entry-gate">
+        <div class="gate-msg">Enter</div>
+    </div>
+
+    <div class="profile-card">
+        <div class="side-line"></div>
+        
+        <h1 class="name-header">KARIM</h1>
+
+        <div class="avatar-container">
+            <div class="avatar-circle">
+                <img src="https://xatimg.com/image/XYuscM5eiLO9.png">
+            </div>
+            <div class="status-dot"></div>
+        </div>
+
+        <div class="music-player">
+            <button class="play-btn" id="master-play"><i class="ph-fill ph-play" id="play-icon"></i></button>
+            <div class="track-info">
+                <span class="track-name">Hossam Habib </span>
+                <span class="track-artist">Malnash Naseeb</span>
+            </div>
+            <i class="ph ph-waveform" style="color: var(--neon-purple); font-size: 1.2rem;"></i>
+        </div>
+
+        <div class="info-row">
+            <div class="info-pill">
+                <span class="pill-title">ORIGIN</span>
+                <div class="pill-body">Egypt</div>
+            </div>
+            <div class="info-pill">
+                <span class="pill-title">HOBBY</span>
+                <div class="pill-body">Football</div>
+            </div>
+        </div>
+
+        <div style="font-size: 0.6rem; color: var(--text-gray); letter-spacing: 3px; margin-bottom: 15px;">KEEP GOING</div>
+        
+        
+
+        <audio id="bg-music" loop src="https://files.catbox.moe/t6c69v.mp3"></audio>
+    </div>
+
+    <script>
+        const gate = document.getElementById('entry-gate');
+        const card = document.querySelector('.profile-card');
+        const music = document.getElementById('bg-music');
+        const playBtn = document.getElementById('master-play');
+        const playIcon = document.getElementById('play-icon');
+
+        gate.onclick = () => {
+            gate.style.opacity = '0';
+            setTimeout(() => {
+                gate.style.display = 'none';
+                card.classList.add('show');
+                music.play().then(() => {
+                    playIcon.className = "ph-fill ph-pause";
+                });
+            }, 500);
+        };
+
+        playBtn.onclick = () => {
+            if (music.paused) {
+                music.play();
+                playIcon.className = "ph-fill ph-pause";
+            } else {
+                music.pause();
+                playIcon.className = "ph-fill ph-play";
+            }
+        };
+    </script>
+</body>
+</html>
