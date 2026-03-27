@@ -14,6 +14,8 @@
             --neon-purple: #9d4edd;
             --neon-glow: rgba(157, 78, 221, 0.4);
             --text-gray: #888990;
+            --status-online: #2ecc71;
+            --status-offline: #e74c3c;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -33,6 +35,7 @@
         #entry-gate {
             position: fixed; inset: 0; background: #000; z-index: 1000;
             display: flex; align-items: center; justify-content: center; cursor: pointer;
+            transition: 0.5s;
         }
         .gate-msg { font-size: 0.7rem; letter-spacing: 5px; color: var(--neon-purple); text-transform: uppercase; animation: pulse 2s infinite; }
 
@@ -111,9 +114,15 @@
 
         .status-dot {
             position: absolute; bottom: 12px; right: 12px;
-            width: 15px; height: 15px; background: #2ecc71;
+            width: 15px; height: 15px; background: var(--status-offline);
             border: 3px solid var(--card-dark); border-radius: 50%;
-            box-shadow: 0 0 10px #2ecc71; z-index: 3;
+            box-shadow: 0 0 10px var(--status-offline);
+            transition: 0.5s ease; z-index: 3;
+        }
+
+        .status-dot.online {
+            background: var(--status-online);
+            box-shadow: 0 0 15px var(--status-online);
         }
 
         .music-player {
@@ -206,7 +215,7 @@
             <div class="avatar-circle">
                 <img src="https://xatimg.com/image/XYuscM5eiLO9.png">
             </div>
-            <div class="status-dot"></div>
+            <div class="status-dot" id="xat-status"></div>
         </div>
 
         <div class="music-player">
@@ -251,8 +260,9 @@
         const playIcon = document.getElementById('play-icon');
         const volumeSlider = document.getElementById('volume-slider');
         const muteBtn = document.getElementById('mute-btn');
+        const statusDot = document.getElementById('xat-status');
+        const userId = '1516635051';
 
-        // Initial volume
         music.volume = 0.5;
 
         gate.onclick = () => {
@@ -302,6 +312,26 @@
                 muteBtn.className = "ph ph-speaker-high";
             }
         }
+
+        // --- Xat Status Logic (xatblog.net API) ---
+        async function checkXatStatus() {
+            try {
+                const response = await fetch(`https://api.xatblog.net/onlinecheck/${userId}`);
+                const data = await response.json();
+                
+                if (data.status === 'online') {
+                    statusDot.classList.add('online');
+                } else {
+                    statusDot.classList.remove('online');
+                }
+            } catch (error) {
+                console.error("API Error");
+                statusDot.classList.remove('online');
+            }
+        }
+
+        checkXatStatus();
+        setInterval(checkXatStatus, 30000);
     </script>
 </body>
 </html>
